@@ -1,19 +1,15 @@
 package org.example;
-
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class AppTest {
+public class TestCRM {
     WebDriver browser;
-    WebDriverWait webDriverWait;
 
     @BeforeAll
     static void main(){
@@ -34,10 +30,15 @@ public class AppTest {
     void inputNameCrm(){
         browser.findElement(By.xpath("//input[@name=\"crm_contact[lastName]\"]")).sendKeys("Doe");
         browser.findElement(By.name("crm_contact[firstName]")).sendKeys("John");
+        String text = browser.findElement(By.xpath("//button[contains(., 'Применить')]")).getText();
+        Assertions.assertEquals(text, "Применить");
 
-        Thread.sleep(50000);
+
+    }
+    @AfterEach
+    void finaleBrowserClose() {
         browser.close();
         browser.quit();
-    }
 
+    }
 }
